@@ -12,17 +12,26 @@ public class Main {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int availableBooks = Integer.parseInt(br.readLine());
-		String[] prices = br.readLine().split(" ");
-		int peterMoney = Integer.parseInt(br.readLine());
-		br.close();
-		arrayOfPrices = new int[availableBooks];
-		for(int k = 0;k<prices.length;k++) {
-			arrayOfPrices[k] = Integer.parseInt(prices[k]);
+		String line = br.readLine();
+		while(line!=null){
+			int availableBooks = Integer.parseInt(line);
+			String[] prices = br.readLine().split(" ");
+			int peterMoney = Integer.parseInt(br.readLine());
+			arrayOfPrices = new int[availableBooks];
+			for(int k = 0;k<prices.length;k++) {
+				arrayOfPrices[k] = Integer.parseInt(prices[k]);
+			}
+			Arrays.sort(arrayOfPrices);
+			String message = findBooks(peterMoney);
+			bw.write(message);
+			bw.flush();
+			line = br.readLine();
+			if(line.equals("")) {
+				line = br.readLine();
+			}
 		}
-		Arrays.sort(arrayOfPrices);
-		String message = findBooks(peterMoney);
-		System.out.println(message);
+		br.close();
+		bw.close();
 	}
 
 	public static String findBooks(int peterMoney) {
@@ -36,14 +45,14 @@ public class Main {
 				int middle = (beginning + end)/2;
 				if((arrayOfPrices[middle]+ arrayOfPrices[i])==peterMoney) {
 					if(firstPrice == 0 && secondPrice == 0) {
-						if(arrayOfPrices[middle]<arrayOfPrices[i]) {
+						if(arrayOfPrices[middle]<arrayOfPrices[i] || (arrayOfPrices[middle]==arrayOfPrices[i] && middle-i!=0)) {
 							firstPrice = arrayOfPrices[middle];
 							secondPrice = arrayOfPrices[i];
 							subtraction2 = secondPrice-firstPrice;
-							message = "Peter should buy books whose prices are "+firstPrice+" and "+secondPrice;
-						}else {
+							message = "\nPeter should buy books whose prices are "+firstPrice+" and "+secondPrice+".\n";
+						}else{
 							subtraction2 = firstPrice-secondPrice;
-							message = "Peter should buy books whose prices are "+secondPrice+" and "+firstPrice;
+							message = "\nPeter should buy books whose prices are "+secondPrice+" and "+firstPrice+".\n";
 						}
 					}else {
 						if(arrayOfPrices[middle]<arrayOfPrices[i]) {
@@ -53,15 +62,15 @@ public class Main {
 						}
 						if(subtraction1<subtraction2) {
 							if(arrayOfPrices[i]<arrayOfPrices[middle]) {
-								message = "Peter should buy books whose prices are "+arrayOfPrices[i]+" and "+arrayOfPrices[middle];
+								message = "\nPeter should buy books whose prices are "+arrayOfPrices[i]+" and "+arrayOfPrices[middle]+".\n";
 							}else {
-								message = "Peter should buy books whose prices are "+arrayOfPrices[middle]+" and "+arrayOfPrices[i];
+								message = "\nPeter should buy books whose prices are "+arrayOfPrices[middle]+" and "+arrayOfPrices[i]+".\n";
 							}
 						}else {
 							if(firstPrice<secondPrice) {
-								message = "Peter should buy books whose prices are "+firstPrice+" and "+secondPrice;
+								message = "\nPeter should buy books whose prices are "+firstPrice+" and "+secondPrice+".\n";
 							}else {
-								message = "Peter should buy books whose prices are "+secondPrice+" and "+firstPrice;
+								message = "\nPeter should buy books whose prices are "+secondPrice+" and "+firstPrice+".\n";
 							}
 						}
 					}
