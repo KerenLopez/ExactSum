@@ -23,13 +23,11 @@ public class Main {
 			}
 			Arrays.sort(arrayOfPrices);
 			String message = findBooks(peterMoney);
-			bw.write(message);
-			bw.flush();
+			bw.write(message+"\n\n");
 			line = br.readLine();
-			if(line.equals("")) {
-				line = br.readLine();
-			}
+			line = br.readLine();
 		}
+		bw.flush();
 		br.close();
 		bw.close();
 	}
@@ -49,10 +47,10 @@ public class Main {
 							firstPrice = arrayOfPrices[middle];
 							secondPrice = arrayOfPrices[i];
 							subtraction2 = secondPrice-firstPrice;
-							message = "\nPeter should buy books whose prices are "+firstPrice+" and "+secondPrice+".\n";
+							message = "Peter should buy books whose prices are "+firstPrice+" and "+secondPrice+".";
 						}else{
 							subtraction2 = firstPrice-secondPrice;
-							message = "\nPeter should buy books whose prices are "+secondPrice+" and "+firstPrice+".\n";
+							message = "Peter should buy books whose prices are "+secondPrice+" and "+firstPrice+".";
 						}
 					}else {
 						if(arrayOfPrices[middle]<arrayOfPrices[i]) {
@@ -62,15 +60,15 @@ public class Main {
 						}
 						if(subtraction1<subtraction2) {
 							if(arrayOfPrices[i]<arrayOfPrices[middle]) {
-								message = "\nPeter should buy books whose prices are "+arrayOfPrices[i]+" and "+arrayOfPrices[middle]+".\n";
+								message = "Peter should buy books whose prices are "+arrayOfPrices[i]+" and "+arrayOfPrices[middle]+".";
 							}else {
-								message = "\nPeter should buy books whose prices are "+arrayOfPrices[middle]+" and "+arrayOfPrices[i]+".\n";
+								message = "Peter should buy books whose prices are "+arrayOfPrices[middle]+" and "+arrayOfPrices[i]+".";
 							}
 						}else {
 							if(firstPrice<secondPrice) {
-								message = "\nPeter should buy books whose prices are "+firstPrice+" and "+secondPrice+".\n";
+								message = "Peter should buy books whose prices are "+firstPrice+" and "+secondPrice+".";
 							}else {
-								message = "\nPeter should buy books whose prices are "+secondPrice+" and "+firstPrice+".\n";
+								message = "Peter should buy books whose prices are "+secondPrice+" and "+firstPrice+".";
 							}
 						}
 					}
